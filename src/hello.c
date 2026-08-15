@@ -1,7 +1,8 @@
+// src/hello.c
 #include <stdio.h>
 
 /**
-Main entry point of `learn_c` project.
+Basic *Hello world* program.
 */
 int main() {
   printf("Hello World!\n");
