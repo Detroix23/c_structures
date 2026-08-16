@@ -10,22 +10,50 @@
 # 		...
 #
 
-CC = gcc
-ALL_C_FILES = $(wildcard */*.c)
+CC := gcc
+CFLAGS := -g -Wall -Wextra -Werror -Iinclude -std=c11
+LDFLAGS := -Llib
+
+DIR_SRC := src
+DIR_BIN := bin
+DIR_LIB := lib
+DIR_TEST := test
+DIR_OBJECTS := objects
+DIR_INCLUDE := include
+
+FILES_C := $(wildcard $(DIR_SRC)/*.c)
+FILES_O := $(patsubst $(DIR_SRC)/%.c,$(DIR_OBJECTS)/%.o,$(FILES_C))
+FILES_TARGETS := $(patsubst $(DIR_SRC)/%.c,$(DIR_BIN)/%,$(FILES_C))
 
 # Default target (because first listed target).
-all: bin/hello test/test1
+all: $(FILES_TARGETS)
 
-test/test1: 
-	touch test/test1
+# Linking object files to make executables.
+$(FILES_TARGETS): $(DIR_BIN)/%: $(DIR_OBJECTS)/%.o
+	@echo "Linking \`$@\` from \`$^\`"
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) -o $@ $^ 
 
-bin/hello.o: src/hello.c
-	echo "Compiling $@"
-	$(CC) -c $^ -o $@
+# Compiling C files to make object files.
+$(FILES_O): $(DIR_OBJECTS)/%.o: $(DIR_SRC)/%.c
+	@echo "Compiling \`$@\` from \`$^\`"
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) -c $^ -o $@
 
-print: ALL_C_FILES
-	echo "$?"
+preview_code:
+	@echo "Preview of files to be compiled: "
+	@echo " "
+	@echo "C: "
+	@echo $(FILES_C)
+	@echo " "
+	@echo "O: "
+	@echo $(FILES_O)
+	@echo " "
+	@echo "Targets: "
+	@echo $(FILES_TARGETS)
 
 clean:
-	rm -rf bin/*
-	rm -rf test/*
+	rm -rf $(FILES_O) $(DIR_TEST)/*
+
+# Mark these target not as files.
+.PHONY: all clean preview_code
