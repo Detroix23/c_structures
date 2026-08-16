@@ -21,9 +21,18 @@ DIR_TEST := test
 DIR_OBJECTS := objects
 DIR_INCLUDE := include
 
-FILES_C := $(wildcard $(DIR_SRC)/*.c)
+# Every folder in ./src will need to be passed to GCC so that it can find header files
+INC_DIRS := $(shell find $(DIR_SRC) -type d)
+# Add a prefix to INC_DIRS. So moduleA would become -ImoduleA. GCC understands this -I flag
+INC_FLAGS := $(addprefix -I,$(INC_DIRS))
+
+FILES_C := $(shell find $(DIR_SRC) -name '*.c')
 FILES_O := $(patsubst $(DIR_SRC)/%.c,$(DIR_OBJECTS)/%.o,$(FILES_C))
+# String substitution (suffix version without %).
+# As an example, ./build/hello.cpp.o turns into ./build/hello.cpp.d
+FILES_DEPS := $(FILES_O:.o=.d)
 FILES_TARGETS := $(patsubst $(DIR_SRC)/%.c,$(DIR_BIN)/%,$(FILES_C))
+
 
 # Default target (because first listed target).
 all: $(FILES_TARGETS)
