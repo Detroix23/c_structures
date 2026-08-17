@@ -11,4 +11,16 @@ struct Vector2D {
     float y;
 };
 
+void consume(struct Vector2D v);
+
+/**
+ * Compute the length **squared** of the vector `v`.
+ */
+float length2(struct Vector2D *v);
+
+/**
+ * Compute the length of the vector `v`.
+ */
+float length(struct Vector2D *v);
+
 # endif

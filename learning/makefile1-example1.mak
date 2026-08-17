@@ -4,6 +4,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -Iinclude -std=c11
 LDFLAGS = -Llib
+LIBRARIES = -lmodule1
 
 # Directories
 SRC_DIR = src
@@ -17,8 +18,7 @@ OBJS = $(patsubst $(SRC_DIR)/%.c,%.o,$(SRCS))
 DEPS = $(OBJS:.o=.d)
 TARGET = $(BIN_DIR)/my_program
 
-# Libraries (static)
-LIBRARIES = -lmodule1
+
 
 # Default target
 all: $(TARGET)

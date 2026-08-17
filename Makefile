@@ -12,7 +12,7 @@
 
 CC := gcc
 CFLAGS := -g -Wall -Wextra -Werror -Iinclude -std=c11
-LDFLAGS := -Llib
+LIBRARIES := -lm
 
 DIR_SRC := src
 DIR_BIN := bin
@@ -31,22 +31,27 @@ FILES_O := $(patsubst $(DIR_SRC)/%.c,$(DIR_OBJECTS)/%.o,$(FILES_C))
 # String substitution (suffix version without %).
 # As an example, ./build/hello.cpp.o turns into ./build/hello.cpp.d
 FILES_DEPS := $(FILES_O:.o=.d)
-# FILES_TARGETS := $(patsubst $(DIR_SRC)/%.c,$(DIR_BIN)/%,$(FILES_C))
-FILES_TARGETS := $(DIR_BIN)/main
+# TARGET := $(patsubst $(DIR_SRC)/%.c,$(DIR_BIN)/%,$(FILES_C))
+TARGET := $(DIR_BIN)/main
 
 
 # Default target (because first listed target).
-all: $(FILES_TARGETS)
+all: $(TARGET)
+
+run: $(TARGET)
+	@echo "Running \`$@\` with \`$(ARGS)\`."
+	@echo
+	@./$(TARGET) $(ARGS)
 
 # Linking object files to make executables.
-$(FILES_TARGETS): $(FILES_O)
-	@echo "Linking \`$@\` from \`$^\`"
+$(TARGET): $(FILES_O)
+	@echo "Linking \`$@\` from \`$^\`."
 	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) -o $@ $^ 
+	$(CC) $(CFLAGS) -o $@ $^ $(LIBRARIES)
 
 # Compiling C files to make object files.	
 $(FILES_O): $(DIR_OBJECTS)/%.o: $(DIR_SRC)/%.c | $(DIR_INCLUDE)/%.h
-	@echo "Compiling \`$@\` from \`$^\`"
+	@echo "Compiling \`$@\` from \`$^\`."
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c $^ -o $@
 
@@ -60,7 +65,7 @@ preview_code:
 	@echo $(FILES_O)
 	@echo " "
 	@echo "Targets: "
-	@echo $(FILES_TARGETS)
+	@echo $(TARGET)
 
 clean:
 	rm -rf $(FILES_O) $(DIR_TEST)/*

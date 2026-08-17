@@ -16,6 +16,10 @@ void test_vectors1() {
 
     printf("v1(%f, %f)\n", v1.x, v1.y);
 
+    consume(v1);
+
+    printf("v1(%f, %f)\n", v1.x, v1.y);
+
     return;
 }
 
@@ -43,6 +47,20 @@ void test_memory1() {
     printf("- `long long int` size B=%ld \n", sizeof((long long int) 42));
     printf("- `long long unsigned int` size B=%ld \n", sizeof((long long unsigned int) 42));
 
+    /*
+    This function allocates an array of num elements each of which size in bytes will be size.
+    `void *calloc(int num, int size);`
+    
+    This function releases a block of memory block specified by address.
+    `void free(void *address);`
+    
+    This function allocates an array of num bytes and leave them uninitialized.
+    `void *malloc(size_t size);`
+
+    This function re-allocates memory extending it up to newsize.
+    `void *realloc(void *address, int newsize);`
+    */
+
     return;
 };
 
@@ -55,6 +73,6 @@ int main() {
     // test_memory1();
     test_vectors1();
 
-    printf("\n*End of `src/main.c`.*");
+    printf("\n*End of `%s`.*", __FILE__);
     return 0;
 };
