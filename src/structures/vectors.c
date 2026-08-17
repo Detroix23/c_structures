@@ -7,19 +7,9 @@
 
 struct Vector2D;
 
-void consume(struct Vector2D v)
-{
-    printf(
-        "(?) %s:%d %s() Miam v(%f, %f).\n",
-        __FILE__, __LINE__, __FUNCTION__, v.x, v.y
-    );
-
-    return;
-}
-
 float length2(struct Vector2D *v) 
 {
-    return v->x * v->x + v->y + v->y;
+    return v->x * v->x + v->y * v->y;
 };
 
 float length(struct Vector2D *v)
@@ -27,3 +17,17 @@ float length(struct Vector2D *v)
     return sqrtf(length2(v));
 };
 
+struct Vector2D normalized(struct Vector2D *v)
+{
+    struct Vector2D n = *v;
+    normalize(&n);
+    return n;
+}
+
+void normalize(struct Vector2D *v)
+{
+    float l = length(v);
+    v->x /= l;
+    v->y /= l;
+    return;
+}

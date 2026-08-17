@@ -12,13 +12,12 @@
 void test_vectors1() {
     printf("\n## Test: vectors 1.\n");
 
-    struct Vector2D v1 = {5.0, 14.0};
+    struct Vector2D v1 = {4.0, 3.0};
 
-    printf("v1(%f, %f)\n", v1.x, v1.y);
+    printf("|v1(%f, %f)| = %f\n", v1.x, v1.y, length(&v1));
 
-    consume(v1);
-
-    printf("v1(%f, %f)\n", v1.x, v1.y);
+    struct Vector2D n1 = normalized(&v1);
+    printf("|n1(%f, %f)| = %f\n", n1.x, n1.y, length(&n1));
 
     return;
 }

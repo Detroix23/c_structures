@@ -14,13 +14,23 @@ struct Vector2D {
 void consume(struct Vector2D v);
 
 /**
- * Compute the length **squared** of the vector `v`.
+ * Compute the length **squared** of vector `v`.
  */
 float length2(struct Vector2D *v);
 
 /**
- * Compute the length of the vector `v`.
+ * Compute the length of vector `v`.
  */
 float length(struct Vector2D *v);
+
+/**
+ * Returns a normalized **copy** of vector `v`.
+ */
+struct Vector2D normalized(struct Vector2D *v);
+
+/**
+ * Normalize `v` and returns the updated vector. 
+ */
+void normalize(struct Vector2D *v);
 
 # endif
