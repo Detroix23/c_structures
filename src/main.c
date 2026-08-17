@@ -3,11 +3,27 @@
 #include <stdbool.h>
 #include <assert.h>
 
+#include "../include/structures/vectors.h"
+
+
+/**
+ * Test: first 2D vectors.
+ */
+void test_vectors1() {
+    printf("\n## Test: vectors 1.\n");
+
+    struct Vector2D v1 = {5.0, 14.0};
+
+    printf("v1(%f, %f)\n", v1.x, v1.y);
+
+    return;
+}
+
 /**
  * Test: playing around with memory.
  */
 void test_memory1() {
-    printf("## Test: memory 1.\n");
+    printf("\n## Test: memory 1.\n");
 
     int universe = 42;
     int* pointer1 = &universe;
@@ -28,15 +44,17 @@ void test_memory1() {
     printf("- `long long unsigned int` size B=%ld \n", sizeof((long long unsigned int) 42));
 
     return;
-}
+};
 
 /**
  * Main entry point.
  */
 int main() {
-    printf("# Learn C\n");
+    printf("# Learn C.\n");
   
-    test_memory1();
+    // test_memory1();
+    test_vectors1();
 
+    printf("\n*End of `src/main.c`.*");
     return 0;
-}
+};
