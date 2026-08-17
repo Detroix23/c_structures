@@ -67,7 +67,7 @@ void test_memory1() {
  * Main entry point.
  */
 int main() {
-    printf("# Learn C.\n");
+    printf("# C structures.\n");
   
     // test_memory1();
     test_vectors1();
