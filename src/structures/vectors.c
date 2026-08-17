@@ -7,26 +7,26 @@
 
 struct Vector2D;
 
-float length2(struct Vector2D *v) 
+float vector_length2(struct Vector2D *v) 
 {
     return v->x * v->x + v->y * v->y;
 };
 
-float length(struct Vector2D *v)
+float vector_length(struct Vector2D *v)
 {
-    return sqrtf(length2(v));
+    return sqrtf(vector_length2(v));
 };
 
-struct Vector2D normalized(struct Vector2D *v)
+struct Vector2D vector_normalized(struct Vector2D *v)
 {
     struct Vector2D n = *v;
-    normalize(&n);
+    vector_normalize(&n);
     return n;
 }
 
-void normalize(struct Vector2D *v)
+void vector_normalize(struct Vector2D *v)
 {
-    float l = length(v);
+    float l = vector_length(v);
     v->x /= l;
     v->y /= l;
     return;

@@ -4,7 +4,7 @@
 #include <assert.h>
 
 #include "../include/structures/vectors.h"
-
+#include "../include/structures/lists.h"
 
 /**
  * Test: first 2D vectors.
@@ -14,13 +14,29 @@ void test_vectors1() {
 
     struct Vector2D v1 = {4.0, 3.0};
 
-    printf("|v1(%f, %f)| = %f\n", v1.x, v1.y, length(&v1));
+    printf("|v1(%f, %f)| = %f\n", v1.x, v1.y, vector_length(&v1));
 
-    struct Vector2D n1 = normalized(&v1);
-    printf("|n1(%f, %f)| = %f\n", n1.x, n1.y, length(&n1));
+    struct Vector2D n1 = vector_normalized(&v1);
+    printf("|n1(%f, %f)| = %f\n", n1.x, n1.y, vector_length(&n1));
 
     return;
 }
+
+/**
+ * Test: first lists.
+ */
+void test_lists1() {
+    printf("\n## Test: lists 1.\n");
+
+    struct LinkedList l3 = {3, 0};
+    struct LinkedList l2 = {2, &l3};
+    struct LinkedList l1 = {1, &l2};
+
+    if (l1.next) printf("l1 next: %d\n", l1.next->value);
+    printf("l1 length l=%d\n", linked_list_length(&l1));
+
+    return;
+};
 
 /**
  * Test: playing around with memory.
@@ -71,6 +87,7 @@ int main() {
   
     // test_memory1();
     test_vectors1();
+    test_lists1();
 
     printf("\n*End of `%s`.*", __FILE__);
     return 0;
