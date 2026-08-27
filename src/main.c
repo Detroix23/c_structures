@@ -9,7 +9,8 @@
 /**
  * Test: first 2D vectors.
  */
-void test_vectors1() {
+void test_vectors1() 
+{
     printf("\n## Test: vectors 1.\n");
 
     struct Vector2D v1 = {4.0, 3.0};
@@ -25,15 +26,29 @@ void test_vectors1() {
 /**
  * Test: first lists.
  */
-void test_lists1() {
+void test_lists1() 
+{
     printf("\n## Test: lists 1.\n");
 
-    struct LinkedList l3 = {3, 0};
-    struct LinkedList l2 = {2, &l3};
-    struct LinkedList l1 = {1, &l2};
-
-    if (l1.next) printf("l1 next: %d\n", l1.next->value);
+    struct SimpleNode l1_3 = {3, NULL};
+    struct SimpleNode l1_2 = {2, &l1_3};
+    struct SimpleNode l1 = {1, &l1_2};
+    
     printf("l1 length l=%d\n", linked_list_length(&l1));
+    printf("l1: ");
+    linked_list_print(&l1);
+    printf("\n");
+
+
+    int a2[] = {3, 4, 5, 6, 7, 8};
+    struct SimpleNode *l2 = linked_list_from_array(a2, 6);
+    printf("I/ l2 created ([0] = (%d, %p).\n", l2->value, l2->next);
+    printf("1. %d (%p) \n", l2->value, l2->next);
+    printf("2. %d (%p) \n", l2->next->value, l2->next->next);
+
+    printf("l2 length l=%d\n", linked_list_length(l2));
+    printf("l2: ");
+    linked_list_print(l2);
 
     return;
 };
@@ -41,7 +56,8 @@ void test_lists1() {
 /**
  * Test: playing around with memory.
  */
-void test_memory1() {
+void test_memory1() 
+{
     printf("\n## Test: memory 1.\n");
 
     int universe = 42;
@@ -80,14 +96,33 @@ void test_memory1() {
 };
 
 /**
+ * Prints the `int` `array` of given `size`.
+ */
+void array_print(int *array, int size)
+{
+    printf("Length of `array`: l=%ld \n", sizeof(array));
+    printf("Length of `*array`: l=%ld \n", sizeof(*array));
+    
+    printf("[ ");
+    for (int index = 0; index < size; index++) {
+        printf("%d ", array[index]);
+    }
+    printf("] \n");
+}
+
+/**
  * Main entry point.
  */
-int main() {
+int main() 
+{
     printf("# C structures.\n");
   
     // test_memory1();
-    test_vectors1();
+    // test_vectors1();
     test_lists1();
+
+    // int *ptr0 = 0;
+    // printf("*ptr0 = %d", *ptr0);
 
     printf("\n*End of `%s`.*", __FILE__);
     return 0;
