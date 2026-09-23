@@ -42,16 +42,16 @@ void test_lists1()
 
     int a2[] = {3, 4, 5, 6, 7, 8};
     struct SimpleNode *l2 = linked_list_from_array(a2, 6);
-    printf("I/ l2 created ([0] = (%d, %p).\n", l2->value, l2->next);
-    printf("1. %d (%p) \n", l2->value, l2->next);
-    printf("2. %d (%p) \n", l2->next->value, l2->next->next);
+    printf("I/ l2 created ([0] = (%d, %p).\n", l2->value, (void *) l2->next);
+    printf("1. %d (%p) \n", l2->value, (void *) l2->next);
+    printf("2. %d (%p) \n", l2->next->value, (void *) l2->next->next);
 
     printf("l2 length l=%d\n", linked_list_length(l2));
     printf("l2: ");
     linked_list_print(l2);
 
     return;
-};
+}
 
 /**
  * Test: playing around with memory.
@@ -61,17 +61,17 @@ void test_memory1()
     printf("\n## Test: memory 1.\n");
 
     int universe = 42;
-    int* pointer1 = &universe;
-    int** pointer2 = &pointer1;
+    int *pointer1 = &universe;
+    int **pointer2 = &pointer1;
 
     printf("Variable: %d\n", universe);
-    printf("- Memory address: %p\n", pointer1);
+    printf("- Memory address: %p\n", (void *) pointer1);
     assert(pointer1 == *pointer2);
-    printf("- Pointer of pointer: %p\n", pointer2);
+    printf("- Pointer of pointer: %p\n", (void *) pointer2);
     assert(pointer1 != (int*) pointer2);
     // Unsafe:
     // printf("- Int value of pointer of pointer: %d\n", *((int*) pointer2));
-    printf("- `bool` size B=%ld \n", sizeof(true));
+    printf("- `bool` size B=%ld \n", sizeof(bool));
     printf("- `int` size B=%ld \n", sizeof(universe));
     printf("- `long int` size B=%ld \n", sizeof((long int) 42));
     printf("- `long unsigned int` size B=%ld \n", sizeof((long unsigned int) 42));
@@ -93,7 +93,7 @@ void test_memory1()
     */
 
     return;
-};
+}
 
 /**
  * Prints the `int` `array` of given `size`.
@@ -126,4 +126,5 @@ int main()
 
     printf("\n*End of `%s`.*", __FILE__);
     return 0;
-};
+}
+

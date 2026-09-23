@@ -11,7 +11,7 @@
 #
 
 CC := gcc
-CFLAGS := -g -Wall -Wextra -Werror -Iinclude -std=c11
+CFLAGS := -g -Wall -Wextra -Werror -Iinclude -std=c11 -pedantic -fsanitize=address
 LIBRARIES := -lm
 
 DIR_SRC := src
@@ -39,7 +39,7 @@ TARGET := $(DIR_BIN)/main
 all: $(TARGET)
 
 run: $(TARGET)
-	@echo "Running \`$@\` with \`$(ARGS)\`."
+	@echo "Running \`$@\` with arguments  \`$(ARGS)\`."
 	@echo
 	@./$(TARGET) $(ARGS)
 
