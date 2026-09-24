@@ -2,7 +2,10 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <assert.h>
+#include <stdint.h>
+#include <string.h>
 
+#include "../include/structures/cli.h"
 #include "../include/structures/vectors.h"
 #include "../include/structures/lists.h"
 
@@ -110,19 +113,39 @@ void array_print(int *array, int size)
     printf("] \n");
 }
 
+/** Help message. */
+void help(
+    size_t token_count,
+    struct CliArgument tokens[token_count]
+) {
+    printf("## Help.\n");
+
+    printf("CLI arguments: \n");
+    for (size_t i = 0; i < token_count; i++) {
+        printf("  %s\n", tokens[i].string);
+    }
+
+    return;
+}
+
 /**
  * Main entry point.
  */
-int main() 
-{
+int main(int argc, char *argv[argc]) {
     printf("# C structures.\n");
-  
-    // test_memory1();
-    // test_vectors1();
-    test_lists1();
 
-    // int *ptr0 = 0;
-    // printf("*ptr0 = %d", *ptr0);
+    const size_t token_count = 3;
+    struct CliArgument tokens[3] = {
+        (const struct CliArgument) {"--memory1", &test_memory1},
+        (const struct CliArgument) {"--vectors1", &test_vectors1},
+        (const struct CliArgument) {"--lists1", &test_lists1}
+    };
+
+    if (argc <= 1) {
+        help(token_count, tokens);
+    } else {
+        cli_match_tokens(argc, argv, token_count, tokens);
+    }
 
     printf("\n*End of `%s`.*", __FILE__);
     return 0;
